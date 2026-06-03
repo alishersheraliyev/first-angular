@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -6,8 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './user.css',
 })
 export class User {
+  @Input({ required: true }) id!: string;
   @Input({ required: true }) avatar!: string;
   @Input({ required: true }) name!: string;
+
+  @Output() selectUser = new EventEmitter();
 
   // avatar = input.required<string>();
   // name = input.required<string>();
@@ -18,5 +21,7 @@ export class User {
     return 'users/' + this.avatar;
   }
 
-  onSelectUser() {}
+  onSelectUser() {
+    this.selectUser.emit(this.id);
+  }
 }
